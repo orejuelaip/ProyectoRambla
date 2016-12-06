@@ -1,0 +1,33 @@
+package entidad;
+
+public class Paciente {
+	private String id_paciente ;
+	private String nombre_paciente ;
+	private String apellido_paciente ;
+	private String fecha_nacimiento ;
+	private String numero_documetnp ;
+	private String x_direccion_real ;
+	private String correo_electronico ;
+	private String fecha_modificacion ;
+	private String c_usuario ;
+	private String l_activo ;
+	private String fecha_debaja;
+	
+	public Paciente(String id_paciente, String nombre_paciente, String apellido_paciente, String fecha_nacimiento,
+			String numero_documetnp, String x_direccion_real, String correo_electronico, String fecha_modificacion,
+			String c_usuario, String l_activo, String fecha_debaja) {
+		this.id_paciente = id_paciente;
+		this.nombre_paciente = nombre_paciente;
+		this.apellido_paciente = apellido_paciente;
+		this.fecha_nacimiento = fecha_nacimiento;
+		this.numero_documetnp = numero_documetnp;
+		this.x_direccion_real = x_direccion_real;
+		this.correo_electronico = correo_electronico;
+		this.fecha_modificacion = fecha_modificacion;
+		this.c_usuario = c_usuario;
+		this.l_activo = l_activo;
+		this.fecha_debaja = fecha_debaja;
+	}
+	
+	
+}

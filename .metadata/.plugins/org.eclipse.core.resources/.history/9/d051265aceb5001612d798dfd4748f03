@@ -1,0 +1,76 @@
+package datos;
+import java.util.ArrayList;
+import java.sql.*;
+
+import coneccion.Coneccion;
+import entidad.Especialidades;
+public class EspecialidadC {
+	private ArrayList<Especialidades> Lista ;
+	private Connection conn = null;
+	private ResultSet Rs = null;
+	
+	
+	public ArrayList<Especialidades> ListaEspecialidad(){
+		Lista = new ArrayList<>();
+		try {
+			PreparedStatement Prm = null;
+			String Sql = "";
+			conn = new Coneccion().getConn();	
+			Prm = conn.prepareStatement(Sql);
+			Rs = Prm.executeQuery(Sql);
+			while (Rs.next()){
+				Especialidades objA = new Especialidades();
+				Lista.add(objA);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return Lista;
+	}
+	
+	 public void modificar(Especialidades objA){
+		 try {
+			 
+			 String sql ="update cibertec2016.alumnos set Nombre=?,Apellidos=?,Edad=?,Sexo=? where IdAlumno = ? ;";
+			 Prm = Cn.prepareCall(sql);
+			 Prm.setString(1, objA.getNombres());
+			 Prm.setString(2, objA.getApellidos());
+			 Prm.setInt(3, objA.getEdad());
+			 Prm.setString(4, objA.getSexo());
+			 Prm.setString(5, objA.getIdALumno());
+			 Prm.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	 }
+	 public void eliminar(String id){
+		 try {
+			 String sql ="delete from alumnos where IdAlumno = ?;";
+			 Prm = Cn.prepareCall(sql);
+			 Prm.setString(1,id);
+			 Prm.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	 }
+ 
+	 public void agregar(Alumnos objA){
+		 try {
+			 String sql ="insert into alumnos value(?,?,?,?,?)";
+			 Prm = Cn.prepareCall(sql);
+			 Prm.setString(1, objA.getIdALumno());
+			 Prm.setString(2, objA.getNombres());
+			 Prm.setString(3, objA.getApellidos());
+			 Prm.setInt(4, objA.getEdad());
+			 Prm.setString(5, objA.getSexo());
+			 
+			 Prm.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	 
+ }
+}

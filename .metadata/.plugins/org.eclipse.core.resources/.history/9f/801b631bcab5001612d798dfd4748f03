@@ -1,0 +1,15 @@
+package entidad;
+
+public class Paciente {
+	private String id_paciente ;
+	private String nombre_paciente ;
+	private String apellido_paciente ;
+	private String fecha_nacimiento ;
+	private String numero_documetnp ;
+	private String x_direccion_real ;
+	private String correo_electronico ;
+	private String fecha_modificacion ;
+	private String c_usuario ;
+	private String l_activo ;
+	private String fecha_debaja;
+}

@@ -1,0 +1,16 @@
+package negocio;
+import datos.EspecialidadC;
+import entidad.Especialidades;
+public class EspecialidadN {
+	
+	private EspecialidadC objE ;
+	private Especialidades DatoE;
+	
+	public EspecialidadN() {
+		objE = new EspecialidadC();
+	}
+	
+	
+
+
+}

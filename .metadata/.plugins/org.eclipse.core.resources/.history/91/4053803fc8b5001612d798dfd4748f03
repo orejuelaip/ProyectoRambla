@@ -1,0 +1,13 @@
+package entidad;
+
+public class Citas {
+	private String id_cita ;
+	private String fecha_cita ;
+	private String id_medico ;
+	private String id_paciente char(20) not null,
+	private String fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	private String fecha_modificacion datetime null,
+	private String c_usuario char(15) not null,
+	private String l_activo char(1) DEFAULT 'S',
+	private String fecha_debaja datetime null
+}

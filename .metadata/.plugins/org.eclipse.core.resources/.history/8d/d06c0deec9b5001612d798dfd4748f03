@@ -1,0 +1,14 @@
+package entidad;
+
+public class Medico {
+	private String id_medico ;
+	private String nombre_medico ;
+	private String apellido_medico;
+	private String fecha_ingreso ;
+	private String fecha_modificacion ;
+	private String id_especialidad ;
+	private String c_usuario ;
+	private String l_activo ;
+	private String fecha_debaja ;
+	
+}

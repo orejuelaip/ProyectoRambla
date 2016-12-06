@@ -1,0 +1,22 @@
+package negocio;
+import java.util.ArrayList;
+
+import datos.EspecialidadC;
+import entidad.Especialidades;
+public class EspecialidadN {
+	
+	private EspecialidadC objE ;
+	private Especialidades DatoE;
+	
+	public EspecialidadN() {
+		objE = new EspecialidadC();
+	}
+	
+	public ArrayList<Especialidades> Listar(){
+		return objE.Listar();
+	}
+	public Boolean modificar(Especialidades objE){
+		
+	}
+
+}

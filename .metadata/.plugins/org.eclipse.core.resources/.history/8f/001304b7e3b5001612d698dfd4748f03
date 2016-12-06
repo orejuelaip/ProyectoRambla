@@ -1,0 +1,14 @@
+package coneccion;
+
+public class Coneccion {
+	private String URL;
+	private String Driver;
+	private String Db;
+	public Coneccion(String uRL, String driver, String db) {
+
+		URL = uRL;
+		Driver = driver;
+		Db = db;
+	}
+
+}

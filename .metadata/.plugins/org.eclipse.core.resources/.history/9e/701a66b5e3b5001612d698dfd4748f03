@@ -1,0 +1,8 @@
+package coneccion;
+
+public class Coneccion {
+	private String URL;
+	private String Driver;
+	private String Db;
+	
+}

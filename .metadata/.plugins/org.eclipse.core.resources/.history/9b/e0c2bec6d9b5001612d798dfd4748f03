@@ -1,0 +1,84 @@
+package datos;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import coneccion.Coneccion;
+import entidad.Medico;
+
+public class MedicoC {
+	private ArrayList<Medico> Lista ;
+	private PreparedStatement Prm = null;
+	private Connection conn = null;
+	private ResultSet Rs = null;
+	public ArrayList<Medico> Listar(){
+		Lista = new ArrayList<>();
+		try {
+			String Sql = "Call ListarEspecialidad();";
+			conn = new Coneccion().getConn();	
+			Prm = conn.prepareStatement(Sql);
+			Rs = Prm.executeQuery(Sql);
+			while (Rs.next()){
+				Medico objM = new Medico();
+				//objE.setId_especialidades(Rs.getString(0));
+				//objE.setId_especialidades(Rs.getString(1));
+				Lista.add(objM);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return Lista;
+	}
+
+	public Boolean modificar(Medico objM){
+		Boolean valor = false;
+		try {
+			String sql ="Call updateEspecialidad(?,?)";
+			conn = new Coneccion().getConn();
+			Prm =  conn.prepareStatement(sql);
+			//Prm.setString(1, objP.getId_especialidades());
+			//Prm.setString(2, objP.getNombre_especialidad());
+			if(Prm.executeUpdate()!= 0)
+				valor = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			valor = false;
+		}
+
+		return valor;
+	}
+	public Boolean  eliminar(String id){
+		Boolean valor = false;
+		try {
+			String sql ="Call deleteEspecialidad(?);";
+			conn = new Coneccion().getConn();
+			Prm =  conn.prepareStatement(sql);
+			Prm.setString(1,id);
+			if(Prm.executeUpdate()!= 0)
+				valor = true;
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			valor = false;
+		}
+		return valor;
+	}
+
+	public Boolean agregar(Medico objM){
+		Boolean valor = false;
+		try {
+			String sql ="call agregarEspecialidad(?);";
+			conn = new Coneccion().getConn();
+			Prm =  conn.prepareStatement(sql);
+			//Prm.setString(1, objM.getNombre_especialidad());
+			if(Prm.executeUpdate()!= 0)
+				valor = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			valor = false;
+		}
+		return valor;
+	}
+}

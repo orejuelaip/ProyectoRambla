@@ -1,0 +1,42 @@
+package entidad;
+
+public class Citas {
+	private String id_cita ;
+	private String fecha_cita ;
+	private String id_medico ;
+	private String id_paciente ;
+	private String c_usuario ;
+	
+	public String getId_cita() {
+		return id_cita;
+	}
+	public void setId_cita(String id_cita) {
+		this.id_cita = id_cita;
+	}
+	public String getFecha_cita() {
+		return fecha_cita;
+	}
+	public void setFecha_cita(String fecha_cita) {
+		this.fecha_cita = fecha_cita;
+	}
+	public String getId_medico() {
+		return id_medico;
+	}
+	public void setId_medico(String id_medico) {
+		this.id_medico = id_medico;
+	}
+	public String getId_paciente() {
+		return id_paciente;
+	}
+	public void setId_paciente(String id_paciente) {
+		this.id_paciente = id_paciente;
+	}
+	public String getC_usuario() {
+		return c_usuario;
+	}
+	public void setC_usuario(String c_usuario) {
+		this.c_usuario = c_usuario;
+	}
+
+
+}

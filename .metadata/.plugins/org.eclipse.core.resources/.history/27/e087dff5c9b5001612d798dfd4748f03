@@ -1,0 +1,26 @@
+package entidad;
+
+public class Medico {
+	private String id_medico ;
+	private String nombre_medico ;
+	private String apellido_medico;
+	private String fecha_ingreso ;
+	private String fecha_modificacion ;
+	private String id_especialidad ;
+	private String c_usuario ;
+	private String l_activo ;
+	private String fecha_debaja ;
+	public Medico(String id_medico, String nombre_medico, String apellido_medico, String fecha_ingreso,
+			String fecha_modificacion, String id_especialidad, String c_usuario, String l_activo, String fecha_debaja) {
+		this.id_medico = id_medico;
+		this.nombre_medico = nombre_medico;
+		this.apellido_medico = apellido_medico;
+		this.fecha_ingreso = fecha_ingreso;
+		this.fecha_modificacion = fecha_modificacion;
+		this.id_especialidad = id_especialidad;
+		this.c_usuario = c_usuario;
+		this.l_activo = l_activo;
+		this.fecha_debaja = fecha_debaja;
+	}
+	
+}

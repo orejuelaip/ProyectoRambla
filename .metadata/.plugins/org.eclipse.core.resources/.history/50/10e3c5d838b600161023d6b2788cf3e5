@@ -1,0 +1,5 @@
+package negocio;
+import datos.EspecialidadC;
+public class EspecialidadN {
+
+}

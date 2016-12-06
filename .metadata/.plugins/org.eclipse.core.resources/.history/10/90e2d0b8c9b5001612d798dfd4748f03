@@ -1,0 +1,14 @@
+package entidad;
+
+public class Especialidades {
+	private String id_especialidades ;
+	private String nombre_especialidad;
+	private String c_usuario ;
+	public Especialidades(String id_especialidades, String nombre_especialidad, String c_usuario) {
+
+		this.id_especialidades = id_especialidades;
+		this.nombre_especialidad = nombre_especialidad;
+		this.c_usuario = c_usuario;
+	}
+
+}

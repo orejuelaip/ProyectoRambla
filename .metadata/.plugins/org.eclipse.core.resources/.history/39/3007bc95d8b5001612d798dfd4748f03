@@ -1,0 +1,86 @@
+package datos;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import coneccion.Coneccion;
+import entidad.Citas;
+
+public class CitasC {
+	private ArrayList<Citas> Lista ;
+	private PreparedStatement Prm = null;
+	private Connection conn = null;
+	private ResultSet Rs = null;
+	public ArrayList<Citas> Listar(){
+		Lista = new ArrayList<>();
+		try {
+			String Sql = "Call ListarCitas() ;";
+			conn = new Coneccion().getConn();	
+			Prm = conn.prepareStatement(Sql);
+			Rs = Prm.executeQuery(Sql);
+			while (Rs.next()){
+				Citas objE = new Citas();
+				//objE.setId_especialidades(Rs.getString(0));
+				//objE.setId_especialidades(Rs.getString(1));
+				Lista.add(objE);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return Lista;
+	}
+
+	public Boolean modificar(Citas objC){
+		Boolean valor = false;
+		try {
+			String sql ="Call updateCitas(?,?,?,?)";
+			conn = new Coneccion().getConn();
+			Prm =  conn.prepareStatement(sql);
+			//Prm.setString(1, objC.getId_especialidades());
+			//Prm.setString(2,objC.getNombre_especialidad());
+			//Prm.setString(2,objC.getNombre_especialidad());
+			//Prm.setString(2,objC.getNombre_especialidad());
+			if(Prm.executeUpdate()!= 0)
+				valor = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			valor = false;
+		}
+
+		return valor;
+	}
+	public Boolean  eliminar(String id){
+		Boolean valor = false;
+		try {
+			String sql ="Call deleteEspecialidad(?);";
+			conn = new Coneccion().getConn();
+			Prm =  conn.prepareStatement(sql);
+			Prm.setString(1,id);
+			if(Prm.executeUpdate()!= 0)
+				valor = true;
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			valor = false;
+		}
+		return valor;
+	}
+
+	public Boolean agregar(Citas objE){
+		Boolean valor = false;
+		try {
+			String sql ="call agregarEspecialidad(?);";
+			conn = new Coneccion().getConn();
+			Prm =  conn.prepareStatement(sql);
+			//Prm.setString(1, objE.getNombre_especialidad());
+			if(Prm.executeUpdate()!= 0)
+				valor = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			valor = false;
+		}
+		return valor;
+	}
+}

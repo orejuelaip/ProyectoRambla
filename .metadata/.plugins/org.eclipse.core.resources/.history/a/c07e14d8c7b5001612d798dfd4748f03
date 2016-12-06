@@ -1,0 +1,26 @@
+package coneccion;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLClientInfoException;
+import java.sql.SQLException;;
+public class Coneccion {
+	private Connection Conn = null;
+	private String URL ="jdbc:mysql://localhost:3306/bd_rambla";
+	private String Driver ="com.mysql.jdbc.Driver";
+
+ 
+
+	private Connection getConn() {
+		try {
+			Class.forName(this.Driver);
+			Conn = DriverManager.getConnection(this.URL,"root","");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch ( SQLException e) {
+			e.printStackTrace();
+		}
+		return this.Conn;
+
+	}
+
+}

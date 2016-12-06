@@ -1,0 +1,137 @@
+package presentacion;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+
+import javax.swing.JInternalFrame;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.UIManager;
+import com.jtattoo.plaf.AbstractLookAndFeel;
+import com.jtattoo.plaf.BaseRootPaneUI;
+import com.jtattoo.plaf.texture.TextureUtils;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+public class FrmEspecialidades extends JInternalFrame {
+	private JPanel panel;
+	private JLabel lblNewLabel;
+	private JTextField txtid;
+	private JLabel lblNombre;
+	private JTextField txtnom;
+	private JButton btnGuardar;
+	private JButton btnNuevo;
+	private JButton btnModificar;
+	private JButton btnCancelar;
+	private JButton btnEliminar;
+	private JPanel panel_1;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+
+					FrmEspecialidades frame = new FrmEspecialidades();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public FrmEspecialidades() {
+		this.setVisible(false);
+		this.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.setTitle("Especialidades");
+		this.setBounds(0, 0, 649, 423);
+	
+		this.setClosable(true);
+		Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+		Dimension ventana = getSize();
+		setLocation((pantalla.width - ventana.width) / 2,
+					(pantalla.height - ventana.height) / 2);
+		this.setPreferredSize(new java.awt.Dimension(649, 423));
+		getContentPane().setLayout(null);
+		
+		this.panel = new JPanel();
+		this.panel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		this.panel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Ingresar datos", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		this.panel.setBounds(20, 32, 571, 142);
+		getContentPane().add(this.panel);
+		this.panel.setLayout(null);
+		
+		this.lblNewLabel = new JLabel("CODIGO :");
+		this.lblNewLabel.setBounds(47, 30, 57, 14);
+		this.panel.add(this.lblNewLabel);
+		
+		this.txtid = new JTextField();
+		this.txtid.setEditable(false);
+		this.txtid.setBounds(148, 27, 126, 20);
+		this.panel.add(this.txtid);
+		this.txtid.setColumns(10);
+		
+		this.lblNombre = new JLabel("ESPECIALIDAD :");
+		this.lblNombre.setBounds(47, 55, 91, 14);
+		this.panel.add(this.lblNombre);
+		
+		this.txtnom = new JTextField();
+		this.txtnom.setBounds(148, 52, 313, 20);
+		this.panel.add(this.txtnom);
+		this.txtnom.setColumns(10);
+		
+		this.btnGuardar = new JButton("");
+		this.btnGuardar.setToolTipText("Guardar");
+		this.btnGuardar.setIcon(new ImageIcon("C:\\Users\\Usuario\\Documents\\ProyectoLp1\\recursos\\guardar.png"));
+		this.btnGuardar.setHorizontalTextPosition(SwingConstants.RIGHT);
+		this.btnGuardar.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		this.btnGuardar.setBounds(146, 93, 32, 38);
+		this.panel.add(this.btnGuardar);
+		
+		this.btnNuevo = new JButton("");
+		this.btnNuevo.setToolTipText("Nuevo");
+		this.btnNuevo.setIcon(new ImageIcon("C:\\Users\\Usuario\\Documents\\ProyectoLp1\\recursos\\nuevo.png"));
+		this.btnNuevo.setBackground(Color.WHITE);
+		this.btnNuevo.setBounds(106, 96, 32, 35);
+		this.panel.add(this.btnNuevo);
+		
+		this.btnModificar = new JButton("");
+		this.btnModificar.setToolTipText("Modificar");
+		this.btnModificar.setIcon(new ImageIcon("C:\\Users\\Usuario\\Documents\\ProyectoLp1\\recursos\\ediatr.png"));
+		this.btnModificar.setBounds(188, 93, 32, 38);
+		this.panel.add(this.btnModificar);
+		
+		this.btnCancelar = new JButton("");
+		this.btnCancelar.setToolTipText("Cancelar");
+		this.btnCancelar.setIcon(new ImageIcon("C:\\Users\\Usuario\\Documents\\ProyectoLp1\\recursos\\Cancel.png"));
+		this.btnCancelar.setBounds(230, 93, 32, 38);
+		this.panel.add(this.btnCancelar);
+		
+		this.btnEliminar = new JButton("");
+		this.btnEliminar.setToolTipText("Eliminar");
+		this.btnEliminar.setIcon(new ImageIcon("C:\\Users\\Usuario\\Documents\\ProyectoLp1\\recursos\\delete.png"));
+		this.btnEliminar.setBounds(272, 93, 32, 38);
+		this.panel.add(this.btnEliminar);
+		
+		this.panel_1 = new JPanel();
+		this.panel_1.setFont(new Font("SansSerif", Font.BOLD, 18));
+		this.panel_1.setBorder(new TitledBorder(null, "Lista de Especialidades", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		this.panel_1.setBounds(20, 200, 571, 165);
+		getContentPane().add(this.panel_1);
+
+
+	}
+}

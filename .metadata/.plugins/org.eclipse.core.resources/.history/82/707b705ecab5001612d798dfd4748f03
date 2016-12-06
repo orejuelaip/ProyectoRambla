@@ -1,0 +1,69 @@
+package entidad;
+
+public class Citas {
+	private String id_cita ;
+	private String fecha_cita ;
+	private String id_medico ;
+	private String  id_paciente ;
+	private String  fecha_registro ;
+	private String  fecha_modificacion ;
+	private String  c_usuario ;
+	private String   l_activo ;
+	private String fecha_debaja ;
+	
+	public String getId_cita() {
+		return id_cita;
+	}
+	public void setId_cita(String id_cita) {
+		this.id_cita = id_cita;
+	}
+	public String getFecha_cita() {
+		return fecha_cita;
+	}
+	public void setFecha_cita(String fecha_cita) {
+		this.fecha_cita = fecha_cita;
+	}
+	public String getId_medico() {
+		return id_medico;
+	}
+	public void setId_medico(String id_medico) {
+		this.id_medico = id_medico;
+	}
+	public String getId_paciente() {
+		return id_paciente;
+	}
+	public void setId_paciente(String id_paciente) {
+		this.id_paciente = id_paciente;
+	}
+	public String getFecha_registro() {
+		return fecha_registro;
+	}
+	public void setFecha_registro(String fecha_registro) {
+		this.fecha_registro = fecha_registro;
+	}
+	public String getFecha_modificacion() {
+		return fecha_modificacion;
+	}
+	public void setFecha_modificacion(String fecha_modificacion) {
+		this.fecha_modificacion = fecha_modificacion;
+	}
+	public String getC_usuario() {
+		return c_usuario;
+	}
+	public void setC_usuario(String c_usuario) {
+		this.c_usuario = c_usuario;
+	}
+	public String getL_activo() {
+		return l_activo;
+	}
+	public void setL_activo(String l_activo) {
+		this.l_activo = l_activo;
+	}
+	public String getFecha_debaja() {
+		return fecha_debaja;
+	}
+	public void setFecha_debaja(String fecha_debaja) {
+		this.fecha_debaja = fecha_debaja;
+	}
+
+}

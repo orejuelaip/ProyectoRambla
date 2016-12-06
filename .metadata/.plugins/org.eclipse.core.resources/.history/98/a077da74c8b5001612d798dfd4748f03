@@ -1,0 +1,6 @@
+package entidad;
+
+public class Especialidades {
+	private String id_especialidades ;
+	private String nombre_especialidad;
+}

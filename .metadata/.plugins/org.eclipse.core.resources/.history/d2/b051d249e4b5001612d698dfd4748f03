@@ -1,0 +1,22 @@
+package coneccion;
+
+public class Coneccion {
+	private String URL;
+	private String Driver;
+	private String Db;
+	public Coneccion(String URL, String Driver, String Db) {
+		this.URL = URL;
+		this.Driver = Driver;
+		this.Db = Db;
+	}
+	private void connect() {
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+
+}
