@@ -22,9 +22,11 @@ import java.awt.event.ActionEvent;
 import negocio.validarN;
 import entidad.usuario;
 import javax.swing.JProgressBar;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
 
-public class FrmLogin extends JFrame implements ActionListener {
+public class FrmLogin extends JFrame implements ActionListener, KeyListener {
 	private JPanel panel;
 	private JButton btnIniciar;
 	private JLabel lblUsuario;
@@ -99,6 +101,7 @@ public class FrmLogin extends JFrame implements ActionListener {
 		this.panel.add(this.btnIniciar);
 		
 		this.txtpass = new JPasswordField();
+		this.txtpass.addKeyListener(this);
 		this.txtpass.setToolTipText("Ingresar clave");
 		this.txtpass.setBounds(136, 101, 151, 20);
 		this.panel.add(this.txtpass);
@@ -134,6 +137,9 @@ public class FrmLogin extends JFrame implements ActionListener {
 	
 	
 	protected void actionPerformedBtnIniciar(ActionEvent arg0) {
+		ejecutar();
+	}
+	private void ejecutar(){
 		deshabiliar(false);
 		if(txtuser.getText().trim().length() != 0 && txtpass.getText().trim().length()!=0){
 			objU = new usuario();
@@ -179,6 +185,21 @@ public class FrmLogin extends JFrame implements ActionListener {
 		}
 	}
 	
+	public void keyPressed(KeyEvent arg0) {
+	}
+	public void keyReleased(KeyEvent arg0) {
+		if (arg0.getSource() == this.txtpass) {
+			keyReleasedTxtpass(arg0);
+		}
+	}
+	public void keyTyped(KeyEvent e) {
+	}
+	protected void keyReleasedTxtpass(KeyEvent e) {
+		if(e.getKeyCode()==10){
+			ejecutar();
+		}
+		
+	}
 }
 
 

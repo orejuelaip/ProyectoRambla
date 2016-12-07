@@ -39,4 +39,7 @@ public class CitasN {
 	public Citas Buscar(String id){
 		return objC.Buscar(id);
 	}
+	public int ValidaCita(String med,String fec,String hora){
+		return objC.ValidaCita(med, fec,hora);
+	}
 }

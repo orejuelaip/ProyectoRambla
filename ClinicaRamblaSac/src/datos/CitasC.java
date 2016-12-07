@@ -37,7 +37,27 @@ public class CitasC {
 		}
 		return Lista;
 	}
-
+	
+	public int ValidaCita(String med,String fec,String hora){
+		int b=0;
+		String [] cmb = med.split(":");
+		String [] fch = fec.split("/");
+		String fecha  = fch[2]+"-"+fch[1]+"-"+fch[0];
+		try {
+			String Sql ;
+			Sql="call usp_validarCita(?,?)";
+			conn = new Coneccion().getConn(); 
+			Prm = conn.prepareStatement(Sql);
+			Prm.setString(1,cmb[0]);
+			Prm.setString(2,fecha+" "+hora);
+			Rs = Prm.executeQuery();
+			if(Rs.next()) b=1;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return b;
+	}
+	
 	public Citas Buscar(String id){
 		Citas  objM = new Citas();
 		try {
@@ -46,8 +66,7 @@ public class CitasC {
 			Prm = conn.prepareStatement(Sql);
 			Prm.setString(1,id);
 			Rs = Prm.executeQuery();
-			if(Rs.next()){
-				 
+			if(Rs.next()){ 
 				 objM.setId_cita(Rs.getString(1));
 				 objM.setId_paciente(Rs.getString(2));
 				 objM.setId_medico(Rs.getString(3));
@@ -55,6 +74,8 @@ public class CitasC {
 				 objM.setHora_cita(Rs.getString(5));
 				 objM.setDetalle(Rs.getString(7));
 				 objM.setId_especialidad(Rs.getString(8));
+			}else{
+				objM =null;
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

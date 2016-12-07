@@ -8,6 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
+
+import entidad.Consulta;
+import negocio.ConsultaN;
+
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -16,8 +22,11 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
 
-public class FrmBuscarPorFechas extends JInternalFrame {
+public class FrmBuscarPorFechas extends JInternalFrame implements ActionListener {
 	private JPanel panel;
 	private JLabel lblIngresarFecha;
 	private JFormattedTextField txtfecha;
@@ -25,6 +34,10 @@ public class FrmBuscarPorFechas extends JInternalFrame {
 	private JPanel panel_1;
 	private JTable tablaConsulta;
 	private JScrollPane scrollPane;
+	private ArrayList<Consulta> ListaE;
+	private String Columnas[]={"Paciente","Medico","Medico","Hora"};
+	private Object Filas[][];
+	private String operacion ;
 
 	/**
 	 * Launch the application.
@@ -66,13 +79,20 @@ public class FrmBuscarPorFechas extends JInternalFrame {
 		this.lblIngresarFecha = new JLabel("Ingresar Fecha");
 		this.lblIngresarFecha.setFont(new Font("SansSerif", Font.BOLD, 12));
 		this.lblIngresarFecha.setBounds(82, 47, 97, 14);
-		this.panel.add(this.lblIngresarFecha);
-		
-		this.txtfecha = new JFormattedTextField();
-		this.txtfecha.setBounds(202, 45, 132, 20);
-		this.panel.add(this.txtfecha);
+		this.panel.add(this.lblIngresarFecha);	
+		try {
+			MaskFormatter mascara1 = new MaskFormatter("##/##/####");
+			mascara1.setPlaceholderCharacter('_');
+			this.txtfecha = new JFormattedTextField(mascara1);
+			this.txtfecha.setBounds(202, 45, 132, 20);
+			this.panel.add(this.txtfecha);			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Error de Foramteo"+e.getMessage());
+		}
 		
 		this.btnConsultar = new JButton("Consultar");
+		this.btnConsultar.addActionListener(this);
 		this.btnConsultar.setBounds(388, 44, 89, 23);
 		this.panel.add(this.btnConsultar);
 		
@@ -87,7 +107,33 @@ public class FrmBuscarPorFechas extends JInternalFrame {
 		
 		this.tablaConsulta = new JTable();
 		this.scrollPane.setViewportView(this.tablaConsulta);
+		DefaultTableModel MiModelo = new DefaultTableModel(Filas,Columnas);
+		tablaConsulta.setModel(MiModelo);
 
 	}
-
+	void cargarDatos(String fec){
+		ConsultaN objE = new ConsultaN();
+		ListaE = new ArrayList<>();
+		ListaE =objE.Listar(fec);
+		Filas = new Object[ListaE.size()][4];	
+		for(int i = 0; i < ListaE.size(); i++){
+			Filas[i][0] = ListaE.get(i).getPaciente();
+			Filas[i][3] = ListaE.get(i).getHoraC(); 
+			Filas[i][2] = ListaE.get(i).getF_registro(); 
+			Filas[i][1] = ListaE.get(i).getUsuario();  
+		}
+		DefaultTableModel MiModelo = new DefaultTableModel(Filas,Columnas);
+		tablaConsulta.setModel(MiModelo);
+		tablaConsulta.getColumnModel().getColumn(3).setMaxWidth(310);  
+		tablaConsulta.getColumnModel().getColumn(1).setMaxWidth(110);  
+		tablaConsulta.getColumnModel().getColumn(2).setMaxWidth(110);  
+	}
+	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == this.btnConsultar) {
+			actionPerformedBtnConsultar(arg0);
+		}
+	}
+	protected void actionPerformedBtnConsultar(ActionEvent arg0) {
+		cargarDatos(txtfecha.getText());
+	}
 }

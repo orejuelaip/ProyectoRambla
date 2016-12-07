@@ -44,7 +44,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
-
+import negocio.metodosN;
 public class FrmCitas extends JInternalFrame implements ActionListener, ItemListener, MouseListener {
 
 	private JPanel panel;
@@ -72,6 +72,7 @@ public class FrmCitas extends JInternalFrame implements ActionListener, ItemList
 	private JScrollPane scrollPane;
 	private JButton btnListar;
 	private JButton btnBuscar;
+	private metodosN m;
 	/**
 	 * Launch the application.
 	 */
@@ -284,6 +285,7 @@ public class FrmCitas extends JInternalFrame implements ActionListener, ItemList
 		comboE();
 		comboPac();
 		cargarDatos();
+		m = new metodosN();
 	}
 	private ArrayList<String> Especialidad;
 	private ArrayList<String> Medicos;
@@ -426,9 +428,18 @@ public class FrmCitas extends JInternalFrame implements ActionListener, ItemList
 		}
 		else if( txtid.isEditable() && busca==2  ){
 			Citas  c = citaN.Buscar(txtid.getText());
-			devuelDatos(c);
-			busca=1;
-			txtid.setEditable(false);
+			if(c != null){
+				devuelDatos(c);
+				busca=1;
+				txtid.setEditable(false);
+				habilitar(false);
+			}else{
+				msj("No se encontraron datos.");
+				busca=1;
+				txtid.setEditable(false);
+				txtid.setText("");
+				habilitar(false);
+			}
 		}
 	}
 	public void itemStateChanged(ItemEvent arg0) {
@@ -452,13 +463,37 @@ public class FrmCitas extends JInternalFrame implements ActionListener, ItemList
 		}
 	}
 	protected void actionPerformedBtnGuardar(ActionEvent arg0) {
-		if(txtdetalle.getText().trim().length() < 5  ){
-			msj("El dato ingresado no es permitido por el sistema.");
-			txtdetalle .requestFocus();
-		}else if(txtid.getText().trim().length() < 5  ){
+		//boton guardar
+		 if(txtid.getText().trim().length() < 5  ){
 			msj("El codigo no se genero intente nuevamente.");
+		}else if(cmbEspecialidad.getSelectedIndex()==0){
+			msj("Seleccione una especialidad");
+		}else if(cmbMedico.getSelectedIndex()==0){
+			msj("Seleccione medico");
+		}else if(cmbPaciente.getSelectedIndex()==0){
+			msj("Seleccione Paciente");
+		}else if( !m.ValidarFecha(txtfecha.getText()) ){
+			msj("Ingrese una fecha valida.");
+		}else if(!m.fechaMayorHoy(txtfecha.getText())){
+			msj("La reservas deden tener como minimo un dia de anticipación.");
+		}else if(m.nombreDia(txtfecha.getText()) == "Domingo" || m.nombreDia(txtfecha.getText()) == "Sabado"  ){
+			msj("Solo se Reservan Citas de Lunes a Viernes.");
+		}else if(m.nombreDia(txtfecha.getText()) == "Domingo" || m.nombreDia(txtfecha.getText()) == "Sabado"  ){
+			msj("Solo se Reservan Citas de Lunes a Viernes.");
+		}else if( !m.horaValida(txthora.getText()) ){
+			msj("La hora ingresada no es valida.");
+		}else if( txtdetalle.getText().trim().length() < 5 ){
+			msj("Indicar el detalle de la consulta.");
 			txtdetalle .requestFocus();
 		}else{
+			guardar();
+		}
+		//ValidaCita(
+		
+   }
+	
+	private void guardar(){
+		 
 			Citas  objE = new  Citas();
 			objE.setId_cita(txtid.getText());
 			objE.setFecha_cita(txtfecha.getText());
@@ -467,28 +502,31 @@ public class FrmCitas extends JInternalFrame implements ActionListener, ItemList
 			objE.setId_paciente(cmbPaciente.getSelectedItem().toString());
 			objE.setDetalle(txtdetalle.getText());
 			objE.setC_usuario(usuario);	
-			if( operacion=="N"){
-				if(citaN.agregar(objE)){
-					cargarDatos();
-					limpiar();
-					habilitar(false);
-					JOptionPane.showMessageDialog(null,"Registro con exito.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+			if(citaN.ValidaCita(cmbMedico.getSelectedItem().toString(), txtfecha.getText(),txthora.getText())==0){
+				if( operacion=="N"){
+					if(citaN.agregar(objE)){
+						cargarDatos();
+						limpiar();
+						habilitar(false);
+						JOptionPane.showMessageDialog(null,"Registro con exito.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(null,"Registro fallido.","Mensaje",JOptionPane.WARNING_MESSAGE);
+					}
 				}else{
-					JOptionPane.showMessageDialog(null,"Registro fallido.","Mensaje",JOptionPane.WARNING_MESSAGE);
+					if(citaN.modificar(objE)){
+						cargarDatos();
+						limpiar();
+						habilitar(false);
+						JOptionPane.showMessageDialog(null,"Editado correctamente.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
+					}else{
+						JOptionPane.showMessageDialog(null,"Edicion fallida.","Mensaje",JOptionPane.WARNING_MESSAGE);
+					}	
 				}
 			}else{
-				if(citaN.modificar(objE)){
-					cargarDatos();
-					limpiar();
-					habilitar(false);
-					JOptionPane.showMessageDialog(null,"Editado correctamente.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-				}else{
-					JOptionPane.showMessageDialog(null,"Edicion fallida.","Mensaje",JOptionPane.WARNING_MESSAGE);
-		
-			}	
-		}
+				msj("Existe una cita registrada con la misma hora para el Medico.");
+			}
+ 
 	}
-   }
 	protected void actionPerformedBtnBorrar(ActionEvent arg0) {
 		if(txtid.getText().trim().length() ==0 && cmbMedico.getSelectedIndex() == 0){
 			msj("Seleccione una cita.");
@@ -499,11 +537,9 @@ public class FrmCitas extends JInternalFrame implements ActionListener, ItemList
 					cargarDatos();
 					limpiar();
 					JOptionPane.showMessageDialog(null,"Eliminado correctamente.","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-					
 				}else{
 					JOptionPane.showMessageDialog(null,"Error al eliminar.","Mensaje",JOptionPane.WARNING_MESSAGE);
 				}
-				
 			}else{
 				msj("Se descarto la eliminacion.");
 				limpiar();
